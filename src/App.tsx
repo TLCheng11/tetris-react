@@ -1,7 +1,13 @@
-import "./App.css";
+import GameBackground from "./components/GameBackground";
+import Stage from "./components/Stage";
+import "./styles/App.css";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <GameBackground>
+      <Stage />
+    </GameBackground>
+  );
 }
 
 export default App;
