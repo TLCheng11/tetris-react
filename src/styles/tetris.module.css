@@ -1,5 +1,27 @@
 #background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
   background-color: black;
+}
+
+#stage {
+  box-sizing: content-box;
+  width: 90%;
+  min-width: 250px;
+  max-width: 500px;
+  border: 0.25rem solid gray;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+}
+
+.cell {
+  width: 10%;
+  aspect-ratio: 1 / 1;
+  border: 0.05rem solid lightgrey;
 }
