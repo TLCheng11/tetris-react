@@ -1,5 +1,9 @@
-export interface IGameBackground {
+export interface ICellProp {
+  addToRefs(el: HTMLDivElement | null): void;
+}
+
+export interface IGameBackgroundProp {
   children: JSX.Element | null;
 }
 
-export interface IRow {}
+export interface IRowProp {}
