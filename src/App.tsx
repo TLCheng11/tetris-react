@@ -1,13 +1,8 @@
-import GameBackground from "./components/GameBackground";
-import Stage from "./components/Stage";
+import Tetris from "./components/Tetris";
 import "./styles/App.css";
 
 function App() {
-  return (
-    <GameBackground>
-      <Stage />
-    </GameBackground>
-  );
+  return <Tetris />;
 }
 
 export default App;
