@@ -6,3 +6,12 @@ export interface ITetromino {
 export interface ITetrominos {
   [k: string]: ITetromino;
 }
+
+export interface IPlayer {
+  pos: {
+    x: number;
+    y: number;
+  };
+  tetromino: number[][];
+  collided: boolean;
+}
