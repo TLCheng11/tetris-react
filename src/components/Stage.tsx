@@ -2,10 +2,9 @@ import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import css from "../styles/tetris.module.css";
 import Cell from "./Cell";
 import Row from "./Row";
+import { HEIGHT, WIDTH } from "../utils/tetrominos";
 
 function Stage() {
-  const HEIGHT = 20;
-  const WIDTH = 12;
   const [stage, setStage] = useState<JSX.Element[] | null>(null);
   const cellRefs = useRef<HTMLDivElement[][]>(
     Array.from(Array(HEIGHT), () => new Array())

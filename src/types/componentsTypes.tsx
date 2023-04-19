@@ -4,6 +4,7 @@ export interface ICellProp {
 
 export interface IGameBackgroundProp {
   children: JSX.Element | null;
+  move: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export interface IRowProp {}

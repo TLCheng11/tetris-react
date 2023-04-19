@@ -1,5 +1,8 @@
 import { ITetromino, ITetrominos } from "../types/utilsTypes";
 
+export const HEIGHT = 20;
+export const WIDTH = 12;
+
 export const TETROMINOS: ITetrominos = {
   N: { shape: [[[0]]], color: "0, 0, 0" },
   I: {
