@@ -82,8 +82,8 @@ function useStage(
     const W = currShape.length;
     for (let h = 0; h < H; h++) {
       for (let w = 0; w < W; w++) {
-        const x = player.pos.x + h;
-        const y = player.pos.y + w;
+        const x = player.pos.x + w;
+        const y = player.pos.y + h;
         if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
           if (action === "clear") {
             cellRefs.current[y][x].style.backgroundColor = "rgba(0, 0, 0, 1)";

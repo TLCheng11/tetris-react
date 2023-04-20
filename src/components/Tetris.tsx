@@ -8,7 +8,8 @@ function Tetris() {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState<boolean>(false);
 
-  const [player, resetPlayer, movePlayer, dropPlayer] = usePlayer();
+  const [player, resetPlayer, movePlayer, dropPlayer, updatePlayerShape] =
+    usePlayer();
   const [stage, clearCells] = useStage(player);
 
   function move(e: React.KeyboardEvent<HTMLDivElement>): void {
@@ -16,6 +17,7 @@ function Tetris() {
       // console.log(e.key);
       clearCells();
       if (e.key === "ArrowUp") {
+        updatePlayerShape();
       } else if (e.key === "ArrowDown") {
         dropPlayer();
       } else if (e.key === "ArrowLeft") {

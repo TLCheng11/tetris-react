@@ -2,11 +2,17 @@ import { useCallback, useState } from "react";
 import { IPlayer } from "../types/utilsTypes";
 import { TETROMINOS, WIDTH, randomTetromino } from "../utils/tetrominos";
 
-function usePlayer(): [IPlayer, () => void, (x: number) => void, () => void] {
+function usePlayer(): [
+  IPlayer,
+  () => void,
+  (x: number) => void,
+  () => void,
+  () => void
+] {
   const [player, setPlayer] = useState<IPlayer>({
     pos: { x: 0, y: 0 },
     shape: 0,
-    tetromino: TETROMINOS["T"],
+    tetromino: randomTetromino(),
     collided: false,
   });
 
@@ -39,7 +45,16 @@ function usePlayer(): [IPlayer, () => void, (x: number) => void, () => void] {
     drop();
   }
 
-  return [player, resetPlayer, movePlayer, dropPlayer];
+  function updatePlayerShape(): void {
+    const choice = player.tetromino.shape.length;
+    let nextShape = player.shape + 1;
+    if (nextShape === choice) {
+      nextShape = 0;
+    }
+    setPlayer((player) => ({ ...player, shape: nextShape }));
+  }
+
+  return [player, resetPlayer, movePlayer, dropPlayer, updatePlayerShape];
 }
 
 export default usePlayer;

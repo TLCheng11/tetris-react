@@ -134,7 +134,7 @@ export const TETROMINOS: ITetrominos = {
         [1, 0, 0],
       ],
     ],
-    color: "rgba(227, 78, 78, )",
+    color: "rgba(227, 78, 78, 1)",
   },
 };
 
