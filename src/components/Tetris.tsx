@@ -19,6 +19,7 @@ function Tetris() {
     dropPlayer,
     updatePlayerShape,
     checkCollisonMove,
+    checkCollisonShape,
   ] = usePlayer(cellRefs);
   const [stage, clearCells] = useStage(player, cellRefs);
 
@@ -26,7 +27,10 @@ function Tetris() {
     if (!gameOver) {
       // console.log(e.key);
       if (e.key === "ArrowUp") {
-        updatePlayerShape();
+        if (!checkCollisonShape()) {
+          clearCells();
+          updatePlayerShape();
+        }
       } else if (e.key === "ArrowDown") {
         if (!checkCollisonMove(0, 1)) {
           clearCells();

@@ -15,7 +15,8 @@ function usePlayer(
   (x: number) => void,
   () => void,
   () => void,
-  (x: number, y: number) => boolean
+  (x: number, y: number) => boolean,
+  () => boolean
 ] {
   const [player, setPlayer] = useState<IPlayer>({
     pos: { x: 0, y: 0 },
@@ -55,10 +56,7 @@ function usePlayer(
 
   function updatePlayerShape(): void {
     const choice = player.tetromino.shape.length;
-    let nextShape = player.shape + 1;
-    if (nextShape === choice) {
-      nextShape = 0;
-    }
+    const nextShape = player.shape + 1 === choice ? 0 : player.shape + 1;
     setPlayer((player) => ({ ...player, shape: nextShape }));
   }
 
@@ -83,7 +81,34 @@ function usePlayer(
             newPos.x < 0 ||
             newPos.x === WIDTH ||
             newPos.y < 0 ||
-            newPos.y === HEIGHT
+            newPos.y === HEIGHT ||
+            cellRefs.current[oldPos.y][oldPos.x].merged
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  function checkCollisonShape(): boolean {
+    const choice = player.tetromino.shape.length;
+    const nextShape = player.shape + 1 === choice ? 0 : player.shape + 1;
+    const newShape = player.tetromino.shape[nextShape];
+    const H = newShape.length;
+    const W = newShape.length;
+    for (let h = 0; h < H; h++) {
+      for (let w = 0; w < W; w++) {
+        if (newShape[h][w]) {
+          const x = player.pos.x + w;
+          const y = player.pos.y + h;
+          if (
+            x < 0 ||
+            x >= WIDTH ||
+            y < 0 ||
+            y >= HEIGHT ||
+            cellRefs.current[y][x].merged
           ) {
             return true;
           }
@@ -100,6 +125,7 @@ function usePlayer(
     dropPlayer,
     updatePlayerShape,
     checkCollisonMove,
+    checkCollisonShape,
   ];
 }
 
