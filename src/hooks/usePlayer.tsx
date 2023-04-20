@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { IPlayer } from "../types/utilsTypes";
+import { IElementRef, IPlayer } from "../types/utilsTypes";
 import {
   HEIGHT,
   TETROMINOS,
@@ -8,7 +8,7 @@ import {
 } from "../utils/tetrominos";
 
 function usePlayer(
-  cellRefs: React.MutableRefObject<HTMLDivElement[][]>
+  cellRefs: React.MutableRefObject<IElementRef[][]>
 ): [
   IPlayer,
   () => void,
@@ -42,7 +42,6 @@ function usePlayer(
   }
 
   function movePlayer(x: number): void {
-    console.log("update");
     updatePlayerPos(x, 0, false);
   }
 
@@ -77,7 +76,7 @@ function usePlayer(
           oldPos.x < WIDTH &&
           oldPos.y >= 0 &&
           oldPos.y < HEIGHT &&
-          cellRefs.current[oldPos.y][oldPos.x].style.backgroundColor
+          cellRefs.current[oldPos.y][oldPos.x].element.style.backgroundColor
         ) {
           // check if new position is out of bounds
           if (

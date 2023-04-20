@@ -4,11 +4,10 @@ import Stage from "./Stage";
 import usePlayer from "../hooks/usePlayer";
 import useStage from "../hooks/useStage";
 import { HEIGHT } from "../utils/tetrominos";
+import { IElementRef } from "../types/utilsTypes";
 
 function Tetris() {
-  const cellRefs = useRef<HTMLDivElement[][]>(
-    Array.from(Array(HEIGHT), () => [])
-  );
+  const cellRefs = useRef<IElementRef[][]>(Array.from(Array(HEIGHT), () => []));
 
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState<boolean>(false);

@@ -9,11 +9,11 @@ import {
 import { HEIGHT, WIDTH } from "../utils/tetrominos";
 import Cell from "../components/Cell";
 import Row from "../components/Row";
-import { IPlayer } from "../types/utilsTypes";
+import { IElementRef, IPlayer } from "../types/utilsTypes";
 
 function useStage(
   player: IPlayer,
-  cellRefs: React.MutableRefObject<HTMLDivElement[][]>
+  cellRefs: React.MutableRefObject<IElementRef[][]>
 ): [
   ReactElement<any, string | JSXElementConstructor<any>>[] | null,
   () => void
@@ -28,7 +28,7 @@ function useStage(
           row++;
         }
         if (row < HEIGHT) {
-          cellRefs.current[row].push(el);
+          cellRefs.current[row].push({ element: el, merged: false });
         }
       }
     }
@@ -83,11 +83,11 @@ function useStage(
         const x = player.pos.x + w;
         const y = player.pos.y + h;
         if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-          if (action === "clear") {
-            cellRefs.current[y][x].style.backgroundColor = "";
+          if (action === "clear" && !cellRefs.current[y][x].merged) {
+            cellRefs.current[y][x].element.style.backgroundColor = "";
           } else if (action === "fill") {
             if (currShape[h][w]) {
-              cellRefs.current[y][x].style.backgroundColor =
+              cellRefs.current[y][x].element.style.backgroundColor =
                 player.tetromino.color;
             }
           }

@@ -1,3 +1,8 @@
+export interface IElementRef {
+  element: HTMLDivElement;
+  merged: boolean;
+}
+
 export interface ITetromino {
   shape: number[][][];
   color: string;
