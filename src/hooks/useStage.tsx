@@ -86,10 +86,11 @@ function useStage(
         const y = player.pos.y + w;
         if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
           if (action === "clear") {
-            cellRefs.current[y][x].style.backgroundColor = "black";
+            cellRefs.current[y][x].style.backgroundColor = "rgba(0, 0, 0, 1)";
           } else if (action === "fill") {
             if (currShape[h][w]) {
-              cellRefs.current[y][x].style.backgroundColor = "red";
+              cellRefs.current[y][x].style.backgroundColor =
+                player.tetromino.color;
             }
           }
         }

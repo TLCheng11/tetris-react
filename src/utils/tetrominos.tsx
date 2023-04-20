@@ -4,7 +4,7 @@ export const HEIGHT = 20;
 export const WIDTH = 12;
 
 export const TETROMINOS: ITetrominos = {
-  N: { shape: [[[0]]], color: "0, 0, 0" },
+  N: { shape: [[[0]]], color: "rgba(0, 0, 0, 1)" },
   I: {
     shape: [
       [
@@ -20,7 +20,7 @@ export const TETROMINOS: ITetrominos = {
         [0, 0, 0, 0],
       ],
     ],
-    color: "80, 227, 230",
+    color: "rgba(80, 227, 230, 1)",
   },
   J: {
     shape: [
@@ -45,7 +45,7 @@ export const TETROMINOS: ITetrominos = {
         [0, 0, 1],
       ],
     ],
-    color: "36, 95, 223",
+    color: "rgba(36, 95, 223, 1)",
   },
   L: {
     shape: [
@@ -70,7 +70,7 @@ export const TETROMINOS: ITetrominos = {
         [0, 0, 0],
       ],
     ],
-    color: "223, 173, 36",
+    color: "rgba(223, 173, 36, 1)",
   },
   O: {
     shape: [
@@ -79,7 +79,7 @@ export const TETROMINOS: ITetrominos = {
         [1, 1],
       ],
     ],
-    color: "223, 217, 36",
+    color: "rgba(223, 217, 36, 1)",
   },
   S: {
     shape: [
@@ -94,7 +94,7 @@ export const TETROMINOS: ITetrominos = {
         [0, 0, 1],
       ],
     ],
-    color: "48, 211, 56",
+    color: "rgba(48, 211, 56, 1)",
   },
   T: {
     shape: [
@@ -119,7 +119,7 @@ export const TETROMINOS: ITetrominos = {
         [0, 1, 0],
       ],
     ],
-    color: "132, 61, 198",
+    color: "rgba(132, 61, 198, 1)",
   },
   Z: {
     shape: [
@@ -134,7 +134,7 @@ export const TETROMINOS: ITetrominos = {
         [1, 0, 0],
       ],
     ],
-    color: "227, 78, 78",
+    color: "rgba(227, 78, 78, )",
   },
 };
 
