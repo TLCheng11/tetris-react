@@ -56,44 +56,46 @@ function useStage(
   }, []);
 
   function clearCells(): void {
+    // clear the current tetromino
     if (
       cellRefs.current[HEIGHT - 1] &&
       cellRefs.current[HEIGHT - 1][WIDTH - 1]
     ) {
-      const H = player.tetromino.length;
-      const W = player.tetromino.length;
-      for (let h = 0; h < H; h++) {
-        for (let w = 0; w < W; w++) {
-          const x = player.pos.x + h;
-          const y = player.pos.y + w;
-          if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-            cellRefs.current[y][x].style.backgroundColor = "black";
-          }
-        }
-      }
+      updateCell(player, "clear");
     }
   }
 
   useEffect(() => {
+    // fill tetromino into next positon automatically when player updated
     if (
       cellRefs.current[HEIGHT - 1] &&
       cellRefs.current[HEIGHT - 1][WIDTH - 1]
     ) {
-      const H = player.tetromino.length;
-      const W = player.tetromino.length;
-      for (let h = 0; h < H; h++) {
-        for (let w = 0; w < W; w++) {
-          if (player.tetromino[h][w]) {
-            const x = player.pos.x + h;
-            const y = player.pos.y + w;
-            if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+      updateCell(player, "fill");
+    }
+  }, [player]);
+
+  // function to update cell base on current player position and tetromino
+  const updateCell = useCallback((player: IPlayer, action: string) => {
+    const currShape = player.tetromino.shape[player.shape];
+    const H = currShape.length;
+    const W = currShape.length;
+    for (let h = 0; h < H; h++) {
+      for (let w = 0; w < W; w++) {
+        const x = player.pos.x + h;
+        const y = player.pos.y + w;
+        if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+          if (action === "clear") {
+            cellRefs.current[y][x].style.backgroundColor = "black";
+          } else if (action === "fill") {
+            if (currShape[h][w]) {
               cellRefs.current[y][x].style.backgroundColor = "red";
             }
           }
         }
       }
     }
-  }, [player]);
+  }, []);
 
   return [stage, clearCells];
 }

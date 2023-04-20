@@ -12,6 +12,7 @@ export interface IPlayer {
     x: number;
     y: number;
   };
-  tetromino: number[][];
+  shape: number;
+  tetromino: ITetromino;
   collided: boolean;
 }

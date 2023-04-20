@@ -145,8 +145,8 @@ export function randomTetromino(): ITetromino {
   return TETROMINOS[randTet];
 }
 
-export function randomTetShape(): number[][] {
-  const currTet = randomTetromino();
-  const shapes = currTet.shape.length;
-  return currTet.shape[Math.floor(Math.random() * shapes)];
-}
+// export function randomTetShape(): number[][] {
+//   const currTet = randomTetromino();
+//   const shapes = currTet.shape.length;
+//   return currTet.shape[Math.floor(Math.random() * shapes)];
+// }
