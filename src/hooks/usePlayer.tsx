@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
 import { IPlayer } from "../types/utilsTypes";
-import { WIDTH, randomTetShape } from "../utils/tetrominos";
+import { TETROMINOS, WIDTH, randomTetShape } from "../utils/tetrominos";
 
 function usePlayer(): [IPlayer, () => void, (x: number) => void, () => void] {
   const [player, setPlayer] = useState<IPlayer>({
     pos: { x: 0, y: 0 },
-    tetromino: [[0]],
+    tetromino: TETROMINOS["T"].shape[0],
     collided: false,
   });
 
