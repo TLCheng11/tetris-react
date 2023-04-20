@@ -12,15 +12,13 @@ import Row from "../components/Row";
 import { IPlayer } from "../types/utilsTypes";
 
 function useStage(
-  player: IPlayer
+  player: IPlayer,
+  cellRefs: React.MutableRefObject<HTMLDivElement[][]>
 ): [
   ReactElement<any, string | JSXElementConstructor<any>>[] | null,
   () => void
 ] {
   const [stage, setStage] = useState<ReactElement[] | null>(null);
-  const cellRefs = useRef<HTMLDivElement[][]>(
-    Array.from(Array(HEIGHT), () => [])
-  );
 
   useEffect(() => {
     function addToRefs(el: HTMLDivElement): void {
@@ -86,7 +84,7 @@ function useStage(
         const y = player.pos.y + h;
         if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
           if (action === "clear") {
-            cellRefs.current[y][x].style.backgroundColor = "rgba(0, 0, 0, 1)";
+            cellRefs.current[y][x].style.backgroundColor = "";
           } else if (action === "fill") {
             if (currShape[h][w]) {
               cellRefs.current[y][x].style.backgroundColor =
