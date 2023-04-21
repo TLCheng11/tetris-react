@@ -21,7 +21,7 @@ function Tetris() {
     checkCollisonMove,
     checkCollisonShape,
   ] = usePlayer(cellRefs);
-  const [stage, clearCells] = useStage(player, cellRefs);
+  const [stage, clearCells] = useStage(player, resetPlayer, cellRefs);
 
   function move(e: React.KeyboardEvent<HTMLDivElement>): void {
     if (!gameOver) {
@@ -34,7 +34,9 @@ function Tetris() {
       } else if (e.key === "ArrowDown") {
         if (!checkCollisonMove(0, 1)) {
           clearCells();
-          dropPlayer();
+          dropPlayer(false);
+        } else {
+          dropPlayer(true);
         }
       } else if (e.key === "ArrowLeft") {
         if (!checkCollisonMove(-1, 0)) {

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { IElementRef, IPlayer } from "../types/utilsTypes";
 import {
   HEIGHT,
@@ -13,7 +13,7 @@ function usePlayer(
   IPlayer,
   () => void,
   (x: number) => void,
-  () => void,
+  (collided: boolean) => void,
   () => void,
   (x: number, y: number) => boolean,
   () => boolean
@@ -50,8 +50,12 @@ function usePlayer(
     updatePlayerPos(0, 1, false);
   }
 
-  function dropPlayer(): void {
-    drop();
+  function dropPlayer(collided: boolean): void {
+    if (collided) {
+      updatePlayerPos(0, 0, collided);
+    } else {
+      updatePlayerPos(0, 1, collided);
+    }
   }
 
   function updatePlayerShape(): void {

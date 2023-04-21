@@ -3,7 +3,6 @@ import {
   ReactElement,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { HEIGHT, WIDTH } from "../utils/tetrominos";
@@ -13,6 +12,7 @@ import { IElementRef, IPlayer } from "../types/utilsTypes";
 
 function useStage(
   player: IPlayer,
+  resetPlayer: () => void,
   cellRefs: React.MutableRefObject<IElementRef[][]>
 ): [
   ReactElement<any, string | JSXElementConstructor<any>>[] | null,
@@ -53,6 +53,19 @@ function useStage(
     }
   }, []);
 
+  useEffect(() => {
+    // fill tetromino into next positon automatically when player updated
+    if (
+      cellRefs.current[HEIGHT - 1] &&
+      cellRefs.current[HEIGHT - 1][WIDTH - 1]
+    ) {
+      updateCell(player, "fill");
+      if (player.collided) {
+        resetPlayer();
+      }
+    }
+  }, [player]);
+
   function clearCells(): void {
     // clear the current tetromino
     if (
@@ -62,16 +75,6 @@ function useStage(
       updateCell(player, "clear");
     }
   }
-
-  useEffect(() => {
-    // fill tetromino into next positon automatically when player updated
-    if (
-      cellRefs.current[HEIGHT - 1] &&
-      cellRefs.current[HEIGHT - 1][WIDTH - 1]
-    ) {
-      updateCell(player, "fill");
-    }
-  }, [player]);
 
   // function to update cell base on current player position and tetromino
   const updateCell = useCallback((player: IPlayer, action: string) => {
@@ -87,6 +90,7 @@ function useStage(
             if (value) {
               cellRefs.current[y][x].element.style.backgroundColor =
                 player.tetromino.color;
+              cellRefs.current[y][x].merged = player.collided;
             }
           }
         }
