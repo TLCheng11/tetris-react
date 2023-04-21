@@ -62,6 +62,7 @@ function useStage(
       updateCell(player, "fill");
       if (player.collided) {
         resetPlayer();
+        checkLineClear();
       }
     }
   }, [player]);
@@ -96,6 +97,34 @@ function useStage(
         }
       });
     });
+  }, []);
+
+  // check if there is a fully merged line
+  const checkLineClear = useCallback(() => {
+    let r = HEIGHT - 1;
+    while (r >= 0) {
+      const row = cellRefs.current[r];
+      if (row.every((cell) => cell.merged)) {
+        let i = r;
+        while (i >= 0) {
+          if (i === 0) {
+            cellRefs.current[i].forEach((cell) => {
+              cell.element.style.backgroundColor = "";
+              cell.merged = false;
+            });
+          } else {
+            for (let c = 0; c < WIDTH; c++) {
+              cellRefs.current[i][c].element.style.backgroundColor =
+                cellRefs.current[i - 1][c].element.style.backgroundColor;
+              cellRefs.current[i][c].merged = cellRefs.current[i - 1][c].merged;
+            }
+          }
+          i--;
+        }
+        r++;
+      }
+      r--;
+    }
   }, []);
 
   return [stage, clearCells];
