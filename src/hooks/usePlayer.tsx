@@ -64,59 +64,20 @@ function usePlayer(
     const currShape = player.tetromino.shape[player.shape];
     return currShape.some((row, h) => {
       return row.some((value, w) => {
-        const oldPos = { x: player.pos.x + w, y: player.pos.y + h };
-        const newPos = { x: oldPos.x + x, y: oldPos.y + y };
-        // check if old position has tetrominos
-        if (
-          oldPos.x >= 0 &&
-          oldPos.x < WIDTH &&
-          oldPos.y >= 0 &&
-          oldPos.y < HEIGHT &&
-          cellRefs.current[oldPos.y][oldPos.x].element.style.backgroundColor
-        ) {
+        // check if current position has tetrominos
+        if (value) {
+          const newPos = { x: player.pos.x + w + x, y: player.pos.y + h + y };
           // check if new position is out of bounds
-          if (
+          return (
             newPos.x < 0 ||
             newPos.x === WIDTH ||
             newPos.y < 0 ||
             newPos.y === HEIGHT ||
-            cellRefs.current[oldPos.y][oldPos.x].merged
-          ) {
-            return true;
-          }
+            cellRefs.current[newPos.y][newPos.x].merged
+          );
         }
-        return false;
       });
     });
-
-    // const H = currShape.length;
-    // const W = currShape.length;
-    // for (let h = 0; h < H; h++) {
-    //   for (let w = 0; w < W; w++) {
-    //     const oldPos = { x: player.pos.x + w, y: player.pos.y + h };
-    //     const newPos = { x: oldPos.x + x, y: oldPos.y + y };
-    //     // check if old position has tetrominos
-    //     if (
-    //       oldPos.x >= 0 &&
-    //       oldPos.x < WIDTH &&
-    //       oldPos.y >= 0 &&
-    //       oldPos.y < HEIGHT &&
-    //       cellRefs.current[oldPos.y][oldPos.x].element.style.backgroundColor
-    //     ) {
-    //       // check if new position is out of bounds
-    //       if (
-    //         newPos.x < 0 ||
-    //         newPos.x === WIDTH ||
-    //         newPos.y < 0 ||
-    //         newPos.y === HEIGHT ||
-    //         cellRefs.current[oldPos.y][oldPos.x].merged
-    //       ) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    // }
-    // return false
   }
 
   function checkCollisonShape(): boolean {
@@ -128,40 +89,16 @@ function usePlayer(
         if (value) {
           const x = player.pos.x + w;
           const y = player.pos.y + h;
-          if (
+          return (
             x < 0 ||
             x >= WIDTH ||
             y < 0 ||
             y >= HEIGHT ||
             cellRefs.current[y][x].merged
-          ) {
-            return true;
-          }
+          );
         }
-        return false;
       });
     });
-
-    // const H = newShape.length;
-    // const W = newShape.length;
-    // for (let h = 0; h < H; h++) {
-    //   for (let w = 0; w < W; w++) {
-    //     if (newShape[h][w]) {
-    //       const x = player.pos.x + w;
-    //       const y = player.pos.y + h;
-    //       if (
-    //         x < 0 ||
-    //         x >= WIDTH ||
-    //         y < 0 ||
-    //         y >= HEIGHT ||
-    //         cellRefs.current[y][x].merged
-    //       ) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    // }
-    // return false;
   }
 
   return [

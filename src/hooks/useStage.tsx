@@ -92,25 +92,6 @@ function useStage(
         }
       });
     });
-
-    // const H = currShape.length;
-    // const W = currShape.length;
-    // for (let h = 0; h < H; h++) {
-    //   for (let w = 0; w < W; w++) {
-    //     const x = player.pos.x + w;
-    //     const y = player.pos.y + h;
-    //     if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-    //       if (action === "clear" && !cellRefs.current[y][x].merged) {
-    //         cellRefs.current[y][x].element.style.backgroundColor = "";
-    //       } else if (action === "fill") {
-    //         if (currShape[h][w]) {
-    //           cellRefs.current[y][x].element.style.backgroundColor =
-    //             player.tetromino.color;
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }, []);
 
   return [stage, clearCells];
