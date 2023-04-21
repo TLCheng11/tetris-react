@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GameBackground from "./GameBackground";
 import Stage from "./Stage";
 import usePlayer from "../hooks/usePlayer";
@@ -23,6 +23,12 @@ function Tetris() {
   ] = usePlayer(cellRefs);
   const [stage, clearCells] = useStage(player, resetPlayer, cellRefs);
 
+  useEffect(() => {
+    if (gameOver) {
+      console.log("gameover");
+    }
+  }, [gameOver]);
+
   function move(e: React.KeyboardEvent<HTMLDivElement>): void {
     if (!gameOver) {
       // console.log(e.key);
@@ -37,6 +43,9 @@ function Tetris() {
           dropPlayer(false);
         } else {
           dropPlayer(true);
+          if (player.pos.y === 0) {
+            setGameOver(true);
+          }
         }
       } else if (e.key === "ArrowLeft") {
         if (!checkCollisonMove(-1, 0)) {
