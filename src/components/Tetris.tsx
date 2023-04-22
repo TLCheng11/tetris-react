@@ -5,11 +5,12 @@ import usePlayer from "../hooks/usePlayer";
 import useStage from "../hooks/useStage";
 import { HEIGHT } from "../utils/tetrominos";
 import { IElementRef } from "../types/utilsTypes";
+import { useInterval } from "../hooks/useInterval";
 
 function Tetris() {
   const cellRefs = useRef<IElementRef[][]>(Array.from(Array(HEIGHT), () => []));
 
-  const [dropTime, setDropTime] = useState(null);
+  const [dropTime, setDropTime] = useState<number>(1000);
   const [gameOver, setGameOver] = useState<boolean>(false);
 
   const [
@@ -26,8 +27,24 @@ function Tetris() {
   useEffect(() => {
     if (gameOver) {
       console.log("gameover");
+    } else {
+      setDropTime(1000);
     }
   }, [gameOver]);
+
+  useInterval(drop, dropTime);
+
+  function drop() {
+    if (!checkCollisonMove(0, 1)) {
+      clearCells();
+      dropPlayer(false);
+    } else {
+      dropPlayer(true);
+      if (player.pos.y === 0) {
+        setGameOver(true);
+      }
+    }
+  }
 
   function move(e: React.KeyboardEvent<HTMLDivElement>): void {
     if (!gameOver) {
@@ -38,15 +55,7 @@ function Tetris() {
           updatePlayerShape();
         }
       } else if (e.key === "ArrowDown") {
-        if (!checkCollisonMove(0, 1)) {
-          clearCells();
-          dropPlayer(false);
-        } else {
-          dropPlayer(true);
-          if (player.pos.y === 0) {
-            setGameOver(true);
-          }
-        }
+        drop();
       } else if (e.key === "ArrowLeft") {
         if (!checkCollisonMove(-1, 0)) {
           clearCells();

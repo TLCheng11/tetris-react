@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { IElementRef, IPlayer } from "../types/utilsTypes";
 import {
   HEIGHT,
@@ -46,10 +46,6 @@ function usePlayer(
     updatePlayerPos(x, 0, false);
   }
 
-  function drop(): void {
-    updatePlayerPos(0, 1, false);
-  }
-
   function dropPlayer(collided: boolean): void {
     if (collided) {
       updatePlayerPos(0, 0, collided);
@@ -80,6 +76,7 @@ function usePlayer(
             cellRefs.current[newPos.y][newPos.x].merged
           );
         }
+        return false;
       });
     });
   }
@@ -101,6 +98,7 @@ function usePlayer(
             cellRefs.current[y][x].merged
           );
         }
+        return false;
       });
     });
   }
