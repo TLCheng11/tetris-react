@@ -54,7 +54,6 @@ function useStage(
   }, [cellRefs]);
 
   useEffect(() => {
-    // fill tetromino into next positon automatically when player updated
     // check if there is a fully merged line
     function checkLineClear() {
       let r = HEIGHT - 1;
@@ -84,6 +83,7 @@ function useStage(
       }
     }
 
+    // fill tetromino into next positon automatically when player updated
     if (
       cellRefs.current[HEIGHT - 1] &&
       cellRefs.current[HEIGHT - 1][WIDTH - 1]
